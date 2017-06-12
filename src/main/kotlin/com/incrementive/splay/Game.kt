@@ -1,12 +1,8 @@
 package com.incrementive.splay
 
 class Game(val config : Config) {
-    private val piles: Map<PileDefinition, Pile>
-
-    init {
-        val map = mutableMapOf(config.deckReceivingPileDefinition to Pile(config.deck))
-        config.otherPileDefinitions.associateByTo(map, {it}, {Pile()})
-        piles = map.toMap()
+    private val piles = with (config) {
+        otherPileDefinitions.associateBy({it}, {Pile()}) + (deckReceivingPileDefinition to Pile(deck))
     }
 
     fun run() = "Welcome to ${config.nameOfGame}, there are ${config.deck.size} cards in the deck."
