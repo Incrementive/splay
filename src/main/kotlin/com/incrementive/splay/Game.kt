@@ -9,7 +9,7 @@ class Game(private val config: Config) {
 
     fun run() = "Welcome to ${config.nameOfGame}, there are ${config.deck.size} cards in the deck."
 
-    fun pileFor(pileDefinition: PileDefinition) = piles[pileDefinition] ?: throw RuntimeException()
+    fun pileFor(pileDefinition: PileDefinition) = piles[pileDefinition]!!
 
     fun moveTopCard(from: PileDefinition, to: PileDefinition) = pileFor(to).place(pileFor(from).draw())
 
