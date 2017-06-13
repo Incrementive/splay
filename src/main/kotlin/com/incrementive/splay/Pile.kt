@@ -12,12 +12,12 @@ class Pile(private val pileDefinition: PileDefinition, deck: Set<Card> = emptySe
     fun place(card: Card) = cards.add(card)
 
     fun render(player: Player) =
-            "${pileDefinition.name}: " +
+            "${pileDefinition.name}: Size: $size, " +
                     when (player) {
                         in pileDefinition.visibleTo -> when (pileDefinition.splay) {
-                            Splay.none -> "Size: $size, Top Card: ${cards.last()}"
-                            Splay.right -> "Size: $size, Cards: " + cards.joinToString(separator = " ")
+                            Splay.none -> "Top Card: " + cards.last()
+                            Splay.right -> "Cards: " + cards.joinToString(separator = " ")
                         }
-                        else -> "Size: $size, cards not visible"
+                        else -> "cards not visible"
                     }
 }
