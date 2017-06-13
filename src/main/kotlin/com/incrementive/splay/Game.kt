@@ -2,8 +2,10 @@ package com.incrementive.splay
 
 class Game(val config : Config) {
     private val piles = with (config) {
-        otherPileDefinitions.associateBy({it}, {Pile()}) + (deckReceivingPileDefinition to Pile(deck))
+        otherPileDefinitions.associateBy({it}, {Pile(it)}) + (deckReceivingPileDefinition to Pile(deckReceivingPileDefinition, deck))
     }
+
+    private val pilesByName = piles.mapKeys { (pileDefinition, _) -> pileDefinition.name }
 
     fun run() = "Welcome to ${config.nameOfGame}, there are ${config.deck.size} cards in the deck."
 
@@ -13,5 +15,17 @@ class Game(val config : Config) {
 
     fun moveTopCard(from: PileDefinition, to: PileDefinition) {
         pileFor(to).place(pileFor(from).draw())
+    }
+
+    fun render(player: Player): String {
+        return "View for ${player.name}" +
+                System.lineSeparator() +
+                piles.values.map{ it.render(player) }.joinToString(separator = System.lineSeparator())
+    }
+
+    fun command(fromPileName: String, index: Int, toPileName: String) {
+        val fromPile = pilesByName[fromPileName]!!
+        val toPile = pilesByName[toPileName]!!
+        toPile.place(fromPile.take(index))
     }
 }

@@ -10,13 +10,13 @@ class GameTest {
         Config(
                 nameOfGame = "name of game",
                 deck = emptySet(),
-                deckReceivingPileDefinition = PileDefinition("pile", Direction.faceUp),
-                otherPileDefinitions = setOf(PileDefinition("pile", Direction.faceUp)))
+                deckReceivingPileDefinition = PileDefinition("pile", emptySet()),
+                otherPileDefinitions = setOf(PileDefinition("pile", emptySet())))
     }
 
     @Test(expected = IllegalArgumentException::class)
     fun constructingConfigWithNoPilesThrowsException() {
-        Config("name of game", setOf(Card("suit", "value")), PileDefinition("pile", Direction.faceUp), emptySet())
+        Config("name of game", setOf(Card("suit", "value")), PileDefinition("pile", emptySet()), emptySet())
     }
 
     @Test
@@ -27,8 +27,8 @@ class GameTest {
         val config = Config(
                 nameOfGame = "name of game",
                 deck = deck,
-                deckReceivingPileDefinition = PileDefinition("pile", Direction.faceUp),
-                otherPileDefinitions = setOf(PileDefinition("pile", Direction.faceUp)))
+                deckReceivingPileDefinition = PileDefinition("pile", emptySet()),
+                otherPileDefinitions = setOf(PileDefinition("pile", emptySet())))
         val output = Game(config).run()
         assertThat(output)
                 .isEqualTo("Welcome to name of game, there are 20 cards in the deck.")
@@ -37,8 +37,8 @@ class GameTest {
     @Test
     fun gameWithTwoPilesStartsWithDeckInSpecifiedPile() {
         val deck = setOf(Card("suit", "value"))
-        val drawPileDefinition = PileDefinition("draw", Direction.faceDown)
-        val discardPileDefinition = PileDefinition("discard", Direction.faceUp)
+        val drawPileDefinition = PileDefinition("draw", emptySet())
+        val discardPileDefinition = PileDefinition("discard", emptySet())
         val config = Config(
                 nameOfGame = "name of game",
                 deck = deck,
@@ -55,8 +55,8 @@ class GameTest {
     @Test
     fun moveCardFromDrawToDiscard() {
         val deck = setOf(Card("suit", "value"))
-        val drawPileDefinition = PileDefinition("draw", Direction.faceDown)
-        val discardPileDefinition = PileDefinition("discard", Direction.faceUp)
+        val drawPileDefinition = PileDefinition("draw", emptySet())
+        val discardPileDefinition = PileDefinition("discard", emptySet())
         val config = Config(
                 nameOfGame = "name of game",
                 deck = deck,
