@@ -13,13 +13,11 @@ class Pile(private val pileDefinition: PileDefinition, deck: Set<Card> = emptySe
 
     fun render(player: Player) =
             "${pileDefinition.name}: " +
-            when (player) {
-                in pileDefinition.visibleTo -> {
-                    when (pileDefinition.splay) {
-                        Splay.none -> "Size: $size, Top Card: ${cards.last()}"
-                        Splay.right -> "Size: $size, Cards: " + cards.joinToString(separator = " ")
+                    when (player) {
+                        in pileDefinition.visibleTo -> when (pileDefinition.splay) {
+                            Splay.none -> "Size: $size, Top Card: ${cards.last()}"
+                            Splay.right -> "Size: $size, Cards: " + cards.joinToString(separator = " ")
+                        }
+                        else -> "Size: $size, cards not visible"
                     }
-                }
-                else -> "Size: $size, cards not visible"
-            }
 }

@@ -1,27 +1,23 @@
 package com.incrementive.splay
 
-class Game(val config : Config) {
-    private val piles = with (config) {
-        otherPileDefinitions.associateBy({it}, {Pile(it)}) + (deckReceivingPileDefinition to Pile(deckReceivingPileDefinition, deck))
+class Game(private val config: Config) {
+    private val piles = with(config) {
+        otherPileDefinitions.associateBy({ it }, { Pile(it) }) + (deckReceivingPileDefinition to Pile(deckReceivingPileDefinition, deck))
     }
 
     private val pilesByName = piles.mapKeys { (pileDefinition, _) -> pileDefinition.name }
 
     fun run() = "Welcome to ${config.nameOfGame}, there are ${config.deck.size} cards in the deck."
 
-    fun pileFor(pileDefinition: PileDefinition): Pile {
-        return piles[pileDefinition] ?: throw RuntimeException()
-    }
+    fun pileFor(pileDefinition: PileDefinition) = piles[pileDefinition] ?: throw RuntimeException()
 
-    fun moveTopCard(from: PileDefinition, to: PileDefinition) {
-        pileFor(to).place(pileFor(from).draw())
-    }
+    fun moveTopCard(from: PileDefinition, to: PileDefinition) = pileFor(to).place(pileFor(from).draw())
 
-    fun render(player: Player): String {
-        return "View for ${player.name}" +
-                System.lineSeparator() +
-                piles.values.map{ it.render(player) }.joinToString(separator = System.lineSeparator())
-    }
+    fun render(player: Player) =
+            piles.values.joinToString(
+                    prefix = "View for ${player.name}" + System.lineSeparator(),
+                    transform = { it.render(player) },
+                    separator = System.lineSeparator())
 
     fun command(fromPileName: String, index: Int, toPileName: String) {
         val fromPile = pilesByName[fromPileName]!!

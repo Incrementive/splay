@@ -37,8 +37,12 @@ fun main(vararg args : String) {
     )
     val game = Game(config)
     while (true) {
-        println(allPlayers.map(game::render).joinToString(separator = System.lineSeparator() + System.lineSeparator()))
-        print("Command> ")
+        allPlayers.joinTo(
+                buffer = System.out,
+                prefix = System.lineSeparator(),
+                transform = game::render,
+                separator = System.lineSeparator() + System.lineSeparator(),
+                postfix = System.lineSeparator() + System.lineSeparator() + "Command> ")
         val command = readLine()!!
         if (command == "exit") break
         val (fromPile, index, toPile) = command.split(",").map(String::trim)
