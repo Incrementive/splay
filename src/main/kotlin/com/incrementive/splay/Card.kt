@@ -1,5 +1,5 @@
 package com.incrementive.splay
 
-data class Card(val suit: String, val value: String) {
-    override fun toString() = "$suit$value"
+data class Card(val suit: String, val rank: String) {
+    override fun toString() = "$suit$rank"
 }

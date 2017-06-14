@@ -12,7 +12,7 @@ class PileTest {
 
     @Test
     fun drawFromNonEmptyPileReturnsCard() {
-        val placedCard = Card("suit", "value")
+        val placedCard = Card("suit", "rank")
         val pile = Pile(
                 name = "pile",
                 visibleTo = emptySet(),
@@ -26,7 +26,7 @@ class PileTest {
 
     @Test
     fun placingCardOnEmptyPileResultsInSizeOfOne() {
-        val placedCard = Card("suit", "value")
+        val placedCard = Card("suit", "rank")
         val pile = Pile(
                 name = "pile",
                 visibleTo =  emptySet())

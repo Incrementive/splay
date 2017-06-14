@@ -16,12 +16,12 @@ class GameTest {
 
     @Test(expected = IllegalArgumentException::class)
     fun constructinggameDefinitionWithNoPilesThrowsException() {
-        GameDefinition("name of game", setOf(Card("suit", "value")), PileDefinition("pile", GameVisibility.none), emptySet(), emptySet())
+        GameDefinition("name of game", setOf(Card("suit", "rank")), PileDefinition("pile", GameVisibility.none), emptySet(), emptySet())
     }
 
     @Test
     fun gameWithTwoPilesStartsWithDeckInSpecifiedPile() {
-        val deck = setOf(Card("suit", "value"))
+        val deck = setOf(Card("suit", "rank"))
         val drawPileDefinition = PileDefinition("draw", GameVisibility.none)
         val discardPileDefinition = PileDefinition("discard", GameVisibility.none)
         val gameDefinition = GameDefinition(
@@ -39,7 +39,7 @@ class GameTest {
 
     @Test
     fun moveCardFromDrawToDiscard() {
-        val deck = setOf(Card("suit", "value"))
+        val deck = setOf(Card("suit", "rank"))
         val drawPileDefinition = PileDefinition("draw", GameVisibility.none)
         val discardPileDefinition = PileDefinition("discard", GameVisibility.none)
         val gameDefinition = GameDefinition(
@@ -60,7 +60,7 @@ class GameTest {
 
     @Test
     fun renderGame() {
-        val deck = setOf(Card("suit", "value"))
+        val deck = setOf(Card("suit", "rank"))
         val drawPileDefinition = PileDefinition("draw", GameVisibility.none)
         val gameDefinition = GameDefinition(
                 nameOfGame = "name of game",
