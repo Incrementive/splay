@@ -74,8 +74,7 @@ class GameTest {
         val game = Game(gameDefinition, setOf(Player("Player One"), Player("Player Two")))
         val rendered = game.render();
         assertThat(rendered)
-                // Ignoring whitespace as a workaround for KT-13048
-                .isEqualToIgnoringWhitespace("""View for Player One
+                .isEqualTo("""View for Player One
 Player One hand: Card count: 0
 Player Two hand: Card count: 0
 draw: Card count: 1, cards not visible
