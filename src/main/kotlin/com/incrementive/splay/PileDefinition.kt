@@ -1,3 +1,6 @@
 package com.incrementive.splay
 
-data class PileDefinition(val name: String, val visibleTo: Set<Player>, val splay: Splay = Splay.none)
+typealias GamePileDefinition = PileDefinition<GameVisibility>
+typealias PlayerPileDefinition = PileDefinition<PlayerVisibility>
+
+data class PileDefinition<out V : PileVisibility>(val name: String, val visibleTo: V, val splay: Splay = Splay.none)
