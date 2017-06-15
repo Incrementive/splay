@@ -6,7 +6,7 @@ import org.junit.Test
 
 class GameDefinitionTest {
     @Test
-    fun onlyDeckReceivingPileReceivesDeck() {
+    fun `only deck receiving pile receives deck`() {
         val suits = setOf("Hearts", "Spades", "Diamonds", "Clubs")
         val values = setOf("2", "Jack", "Queen", "King", "Ace")
         val deck = suits.flatMap { suit -> values.map { value -> Card(suit, value) } }.toSet()
@@ -26,7 +26,7 @@ class GameDefinitionTest {
     }
 
     @Test
-    fun givenOnePlayer_CreatesSinglePileForThatPlayer() {
+    fun `given one player, creates single pile for that player`() {
         val owner = Player("P1")
         val piles = GameDefinition.buildPerPlayerPiles(setOf(owner), setOf(PileDefinition("hand", PlayerVisibility.owner))).toMap()
 
@@ -41,7 +41,7 @@ class GameDefinitionTest {
     }
 
     @Test
-    fun buildingPileWithNoGameVisibilityBuildsPileNotVisibleToPlayers() {
+    fun `building pile with no game visibility builds pile not visible to players`() {
         val allPlayers = emptySet<Player>()
         val piles = GameDefinition.buildOtherPiles(allPlayers, setOf(PileDefinition("draw", GameVisibility.none))).toMap()
         val drawPile = piles["draw"]!!
@@ -55,7 +55,7 @@ class GameDefinitionTest {
     }
 
     @Test
-    fun buildingPileWithAllGameVisibilityBuildsPileVisibleToAllPlayers() {
+    fun `building pile with all game visibility builds pile visible to all players`() {
         val allPlayers = setOf(Player("player one"), Player("player two"))
         val piles = GameDefinition.buildOtherPiles(allPlayers, setOf(PileDefinition("draw", GameVisibility.all))).toMap()
         val drawPile = piles["draw"]!!

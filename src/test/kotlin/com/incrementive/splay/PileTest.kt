@@ -5,13 +5,13 @@ import org.junit.Test
 
 class PileTest {
     @Test(expected = ArrayIndexOutOfBoundsException::class)
-    fun drawFromEmptyPile() {
+    fun `draw from empty pile`() {
         Pile(name = "pile", visibleTo = emptySet())
                 .draw()
     }
 
     @Test
-    fun drawFromNonEmptyPileReturnsCard() {
+    fun `draw from non-empty pile returns card`() {
         val placedCard = Card("suit", "rank")
         val pile = Pile(
                 name = "pile",
@@ -25,7 +25,7 @@ class PileTest {
     }
 
     @Test
-    fun placingCardOnEmptyPileResultsInSizeOfOne() {
+    fun `placing card on empty pile results in size of one`() {
         val placedCard = Card("suit", "rank")
         val pile = Pile(
                 name = "pile",
@@ -36,7 +36,7 @@ class PileTest {
     }
 
     @Test
-    fun placingTwoCardsAllowsThemToBeDrawnInLastInFirstOutOrder() {
+    fun `placing two cards allows them to be drawn in last in first out order`() {
         val firstCardPlaced = Card("suit", "first")
         val secondCardPlaced = Card("suit", "second")
         val pile = Pile(
@@ -51,7 +51,7 @@ class PileTest {
     }
 
     @Test
-    fun renderFaceUpPile() {
+    fun `render face up pile`() {
         val card = Card("♠", "A")
         val players = setOf(Player("Player One"), Player("Player Two"))
         val pile = Pile(
@@ -66,7 +66,7 @@ class PileTest {
     }
 
     @Test
-    fun renderFaceDownPile() {
+    fun `render face down pile`() {
         val player = Player("player")
         val pile = Pile(
                 name = "pile",
@@ -77,7 +77,7 @@ class PileTest {
     }
 
     @Test
-    fun renderPlayerOwnPile() {
+    fun `render player own pile`() {
         val player = Player("Player One")
         val pile = Pile(
                 name = "pile",
@@ -88,7 +88,7 @@ class PileTest {
     }
 
     @Test
-    fun renderPlayerOwnHand() { // hand = splayed pile that only one player can see
+    fun `render player's own hand`() { // hand = splayed pile that only one player can see
         val player = Player("Player One")
         val pile = Pile(
                 name = "pile",
@@ -101,7 +101,7 @@ class PileTest {
     }
 
     @Test
-    fun renderOtherPlayerOwnHand() {
+    fun `render other player's own hand`() {
         val card = Card("♠", "A")
         val player = Player("Player One")
         val otherPlayer = Player("Player Two")

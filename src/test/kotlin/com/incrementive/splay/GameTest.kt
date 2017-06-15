@@ -6,7 +6,7 @@ import org.junit.Test
 class GameTest {
 
     @Test(expected = IllegalArgumentException::class)
-    fun constructingGameDefinitionWithNoCardsThrowsException() {
+    fun `constructing game definition with no cards throws exception`() {
         GameDefinition(
                 nameOfGame = "name of game",
                 deck = emptySet(),
@@ -15,12 +15,12 @@ class GameTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun constructingGameDefinitionWithNoPilesThrowsException() {
+    fun `constructing game definition with no piles throws exception`() {
         GameDefinition("name of game", setOf(Card("suit", "rank")), PileDefinition("pile", GameVisibility.none), emptySet(), emptySet())
     }
 
     @Test
-    fun gameWithTwoPilesStartsWithDeckInSpecifiedPile() {
+    fun `game With Two Piles Starts With Deck In Specified Pile`() {
         val deck = setOf(Card("suit", "rank"))
         val drawPileDefinition = PileDefinition("draw", GameVisibility.none)
         val discardPileDefinition = PileDefinition("discard", GameVisibility.none)
@@ -38,7 +38,7 @@ class GameTest {
     }
 
     @Test
-    fun moveCardFromDrawToDiscard() {
+    fun `move card from draw to discard`() {
         val deck = setOf(Card("suit", "rank"))
         val drawPileDefinition = PileDefinition("draw", GameVisibility.none)
         val discardPileDefinition = PileDefinition("discard", GameVisibility.none)
@@ -59,7 +59,7 @@ class GameTest {
     }
 
     @Test
-    fun renderGame() {
+    fun `render game`() {
         val deck = setOf(Card("suit", "rank"))
         val drawPileDefinition = PileDefinition("draw", GameVisibility.none)
         val gameDefinition = GameDefinition(
