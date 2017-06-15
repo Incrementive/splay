@@ -6,7 +6,7 @@ import org.junit.Test
 class GameTest {
 
     @Test(expected = IllegalArgumentException::class)
-    fun constructinggameDefinitionWithNoCardsThrowsException() {
+    fun constructingGameDefinitionWithNoCardsThrowsException() {
         GameDefinition(
                 nameOfGame = "name of game",
                 deck = emptySet(),
@@ -15,7 +15,7 @@ class GameTest {
     }
 
     @Test(expected = IllegalArgumentException::class)
-    fun constructinggameDefinitionWithNoPilesThrowsException() {
+    fun constructingGameDefinitionWithNoPilesThrowsException() {
         GameDefinition("name of game", setOf(Card("suit", "rank")), PileDefinition("pile", GameVisibility.none), emptySet(), emptySet())
     }
 

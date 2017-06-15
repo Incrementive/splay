@@ -1,5 +1,6 @@
 package com.incrementive.splay
 
+import org.assertj.core.api.Assertions
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Test
 
@@ -27,7 +28,7 @@ class GameDefinitionTest {
     @Test
     fun givenOnePlayer_CreatesSinglePileForThatPlayer() {
         val owner = Player("P1")
-        val piles = GameDefinition.buildPerPlayerPiles(setOf(owner), setOf(PileDefinition("hand", PlayerVisibility.owner)))
+        val piles = GameDefinition.buildPerPlayerPiles(setOf(owner), setOf(PileDefinition("hand", PlayerVisibility.owner))).toMap()
 
         assertThat(piles.size)
                 .isEqualTo(1)
@@ -42,7 +43,7 @@ class GameDefinitionTest {
     @Test
     fun buildingPileWithNoGameVisibilityBuildsPileNotVisibleToPlayers() {
         val allPlayers = emptySet<Player>()
-        val piles = GameDefinition.buildOtherPiles(allPlayers, setOf(PileDefinition("draw", GameVisibility.none)))
+        val piles = GameDefinition.buildOtherPiles(allPlayers, setOf(PileDefinition("draw", GameVisibility.none))).toMap()
         val drawPile = piles["draw"]!!
         assertThat(drawPile)
                 .isEqualTo(Pile(
@@ -56,7 +57,7 @@ class GameDefinitionTest {
     @Test
     fun buildingPileWithAllGameVisibilityBuildsPileVisibleToAllPlayers() {
         val allPlayers = setOf(Player("player one"), Player("player two"))
-        val piles = GameDefinition.buildOtherPiles(allPlayers, setOf(PileDefinition("draw", GameVisibility.all)))
+        val piles = GameDefinition.buildOtherPiles(allPlayers, setOf(PileDefinition("draw", GameVisibility.all))).toMap()
         val drawPile = piles["draw"]!!
         assertThat(drawPile)
                 .isEqualTo(Pile(
@@ -65,5 +66,18 @@ class GameDefinitionTest {
                         splay = Splay.none,
                         deck = emptySet()
                 ))
+    }
+
+    @Test
+    fun `creating piles with duplicate names throws exception`() {
+        val gameDefinition = GameDefinition(nameOfGame = "name of game", deck = setOf(
+                Card("suit", "rank")),
+                deckReceivingPileDefinition = PileDefinition(name = "draw", visibleTo = GameVisibility.none),
+                perPlayerPileDefinitions = emptySet(),
+                otherPileDefinitions = setOf(PileDefinition(name = "draw", visibleTo = GameVisibility.none))
+        )
+        Assertions.assertThatThrownBy {
+            gameDefinition.buildPiles(emptySet())
+        }.hasMessage("Duplicated pile names: [draw]")
     }
 }
